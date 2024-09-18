@@ -12,6 +12,7 @@ $maxValue = 10;
 
 $chyba["pocetSloupcu"] = null;
 $chyba["pocetPrikladuSloupec"] = null;
+$chyba["maxValue"] = null;
 
 if (array_key_exists("practiceOnline", $_GET) || array_key_exists("examplesPrint", $_GET)) {
 	unset($_SESSION["scitani"]);
@@ -29,7 +30,9 @@ if (array_key_exists("practiceOnline", $_GET) || array_key_exists("examplesPrint
 		$pocetPrikladuSloupec = $_GET["pocetPrikladuSloupec"];
 	}
 
-	$maxValue = (int)$_GET["maxValue"];
+	if (isset($maxValue)) {
+		$maxValue = $_GET["maxValue"];
+	}
 
 
 	if (array_key_exists("scitani", $_GET)) {
@@ -75,6 +78,16 @@ if (array_key_exists("practiceOnline", $_GET) || array_key_exists("examplesPrint
 	} else if ($pocetPrikladuSloupec < 1) {
 		$chyba["pocetPrikladuSloupec"] = "Hodnota musí být v rozmezí 1 až 20";
 	}  
+
+	if (empty($maxValue)) {
+		$chyba["maxValue"] = "Musí být vyplněno";
+	} else if (!is_numeric($maxValue)) {
+		$chyba["maxValue"] = "Zadaná hodnota musí být číslo";
+	} else if ($maxValue > 9999) {
+		$chyba["maxValue"] = "Maximální procvičovaná hodnota může být 9999";
+	} else if ($maxValue < 10) {
+		$chyba["maxValue"] = "Minimální procvičovaná hodnotu musí být 10";
+	} 
 }
 ?>
 
@@ -131,7 +144,6 @@ if (array_key_exists("practiceOnline", $_GET) || array_key_exists("examplesPrint
 							<div class="input_wrap">
 								<label for="">Počet sloupečků: (max.5)</label>
 								<input type="text" value="<?php echo $pocetSloupcu; ?>" name="pocetSloupcu">
-
 							</div>
 							<div class="chyba">
 								<?php echo $chyba["pocetSloupcu"]; ?>
@@ -148,7 +160,10 @@ if (array_key_exists("practiceOnline", $_GET) || array_key_exists("examplesPrint
 							<div class="input_wrap">
 								<label for="maxValue">Do kolika chcete procvičovat?</label>
 								<br>
-								<input type="text" min='10' name="maxValue" id="maxValue" value="<?php echo $maxValue; ?> ">
+								<input type="text" min="10" max="9999" name="maxValue" id="maxValue" value="<?php echo $maxValue; ?> ">
+							</div>
+							<div class="chyba">
+								<?php echo $chyba["maxValue"]; ?>
 							</div>
 							<!-- Tlačítko pro odeslání formuláře -->
 							<!-- <button name="practiceOnline">Procvičit online</button> -->
@@ -171,7 +186,7 @@ if (array_key_exists("practiceOnline", $_GET) || array_key_exists("examplesPrint
 				<!-- Zde se mohou zobrazit příklady -->
 				<?php
 				if ($scitani == true || $odcitani == true || $nasobeni == true || $deleni == true) {
-					if (array_key_exists('examplesPrint', $_GET) && $chyba["pocetSloupcu"] == null && $chyba["pocetPrikladuSloupec"] == null) {
+					if (array_key_exists('examplesPrint', $_GET) && $chyba["pocetSloupcu"] == null && $chyba["pocetPrikladuSloupec"] == null && $chyba["maxValue"] == null) {
 
 						if ($chyba["pocetSloupcu"] == null) {
 							for ($i = 0; $i < $pocetSloupcu; $i++) {
