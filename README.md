@@ -15,3 +15,4 @@ Zobrazení před tiskem
 
 Zachycení chyb
 
+![image](https://github.com/user-attachments/assets/5df8a73d-73a6-424e-bb76-2e950f86ad65)
