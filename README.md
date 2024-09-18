@@ -7,7 +7,8 @@ Generování matematických příkladů pro tisk.
 
 Zachycení chyb
 
-![image](https://github.com/user-attachments/assets/5df8a73d-73a6-424e-bb76-2e950f86ad65)
+![image](https://github.com/user-attachments/assets/c3d67338-377e-4ed5-b6bd-4aae8fe013c0)
+
 
 Vygenerované příklady
 
